@@ -106,7 +106,7 @@ class App extends Component {
   }
 
   displayFaceBox = (box) => {
-    console.log(box);
+    console.log(box)
     this.setState({box : box});
   }
 
@@ -137,7 +137,7 @@ class App extends Component {
      onInputChange={this.onInputChange}
      onSubmit = {this.onSubmit}
      />
-    <FaceRecognition imageURL={this.state.imageURL} />
+    <FaceRecognition box = {this.state.box} imageURL={this.state.imageURL} />
     </div>
   );
   }
