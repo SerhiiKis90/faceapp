@@ -4,6 +4,7 @@ import Navigation from './components/Navigation/Navigation';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
+import SignIn from './components/SignIn/SignIn'
 import Rank from './components/Rank/Rank';
 import 'tachyons';
 import Particles from 'react-particles-js';
@@ -88,7 +89,8 @@ class App extends Component {
     this.state ={
       input: '',
       imageURL:'',
-      box: {}
+      box: {},
+      route: 'signin'
     }
   }
 
@@ -123,15 +125,19 @@ class App extends Component {
         .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
         .catch(err => console.log(err)) 
     }
+
+  onRouteChange = (route) => {
+    this.setState({route: route});
+  }  
     
   render() {
   return (
-    <div className="App">
+        <div className="App">
       <Particles className="particles"
       params={particlesOptions}
       />
-     <Navigation />
-     <Logo />
+     <Navigation onRouteChange = {this.onRouteChange} />
+     { this.state.route==='signin' ? <SignIn onRouteChange={this.onRouteChange} /> : <div><Logo />
      <Rank />
      <ImageLinkForm
      onInputChange={this.onInputChange}
@@ -139,7 +145,9 @@ class App extends Component {
      />
     <FaceRecognition box = {this.state.box} imageURL={this.state.imageURL} />
     </div>
-  );
+     }
+    </div>
+);
   }
 }
 
